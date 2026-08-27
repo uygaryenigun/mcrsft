@@ -1,11 +1,4 @@
-"""
-LSTM and GRU model definitions for next-day price prediction.
 
-Both models take a sequence of `lookback` past (scaled) prices and predict
-a single next value. They share the same architecture shape (2 recurrent
-layers -> linear output head) so that comparisons between them isolate the
-effect of the recurrent cell type (LSTM vs GRU) rather than architecture size.
-"""
 import torch
 import torch.nn as nn
 

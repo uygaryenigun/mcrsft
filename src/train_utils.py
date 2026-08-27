@@ -1,11 +1,4 @@
-"""
-Training loop, evaluation, and plotting helpers, plus a CLI entry point that
-runs the full pipeline: download data -> preprocess -> train LSTM & GRU ->
-evaluate -> compare -> save plots/metrics.
 
-Usage:
-    python src/train_utils.py --ticker AMZN --lookback 20 --epochs 100
-"""
 from __future__ import annotations
 
 import argparse
@@ -18,10 +11,10 @@ import torch
 import torch.nn as nn
 
 try:
-    # allow running as `python src/train_utils.py`
+    
     from data_utils import prepare_data, download_stock_data
     from models import LSTMModel, GRUModel
-except ImportError:  # allow running as `python -m src.train_utils`
+except ImportError:  
     from src.data_utils import prepare_data, download_stock_data
     from src.models import LSTMModel, GRUModel
 
@@ -34,7 +27,7 @@ def train_model(
     lr: float = 0.01,
     verbose_every: int = 10,
 ) -> list[float]:
-    """Train `model` with MSE loss + Adam. Returns the per-epoch loss history."""
+    ###########
     criterion = nn.MSELoss()
     optimizer = torch.optim.Adam(model.parameters(), lr=lr)
 
@@ -57,14 +50,11 @@ def train_model(
 
 
 def evaluate_model(model: nn.Module, X_test: torch.Tensor, y_test: torch.Tensor, scaler):
-    """
-    Run inference on the test set and compute MSE/RMSE in original price units
-    (i.e. after inverse-transforming the MinMax scaling).
-    """
+  
     model.eval()
     with torch.no_grad():
         y_pred = model(X_test)
-
+###################
     y_pred_np = scaler.inverse_transform(y_pred.numpy())
     y_test_np = scaler.inverse_transform(y_test.numpy())
 
@@ -74,7 +64,7 @@ def evaluate_model(model: nn.Module, X_test: torch.Tensor, y_test: torch.Tensor,
 
 
 def plot_predictions(y_test_np, preds_by_model: dict, save_path: str | None = None):
-    """Plot actual vs. predicted prices for each model in `preds_by_model`."""
+ 
     import matplotlib.pyplot as plt
 
     plt.figure(figsize=(11, 5))

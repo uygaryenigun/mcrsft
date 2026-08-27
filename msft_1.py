@@ -20,6 +20,8 @@ from src.train_utils import train_model, evaluate_model, plot_predictions
 torch.manual_seed(42)
 np.random.seed(42)
 
+#
+
 TICKER = "AMZN"
 
 df = download_stock_data(TICKER, start="2010-01-01", cache_dir="data")
@@ -36,8 +38,7 @@ plt.savefig("results/closing_price_history.png", dpi=150)
 
 plt.show()
 
-
-
+###
 LOOKBACK = 20
 TRAIN_SPLIT = 0.8
 
@@ -54,7 +55,7 @@ print("X_train:", X_train_t.shape, " y_train:", y_train_t.shape)
 print("X_test :", X_test_t.shape, " y_test :", y_test_t.shape)
 
 
-
+#######
 HIDDEN_DIM = 32
 NUM_LAYERS = 2
 EPOCHS = 100
